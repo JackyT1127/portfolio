@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Jacky Tse — Portfolio</title>
+<style>
+  /* Reset & Base */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0; padding: 0; background: #f8f9fa; color: #222;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    scroll-behavior: smooth;
+  }
+  a {
+    color: #0070f3;
+    text-decoration: none;
+  }
+  a:hover, a:focus {
+    text-decoration: underline;
+    outline: none;
+  }
+  h1, h2, h3 {
+    margin: 0 0 0.4em 0;
+    font-weight: 700;
+  }
+  h1 {
+    font-size: 2.6rem;
+  }
+  h2 {
+    font-size: 2rem;
+    border-bottom: 4px solid #0070f3;
+    padding-bottom: 10px;
+    margin-bottom: 1.5rem;
+    color: #004080;
+  }
+  h3 {
+    font-size: 1.4rem;
+    color: #004080;
+  }
+  strong {
+    color: #111;
+  }
+  p {
+    margin-bottom: 1em;
+    font-size: 1rem;
+    color: #333;
+  }
+
+  /* Layout */
+  .container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    display: flex;
+    gap: 2rem;
+  }
+  nav.sidebar {
+    flex: 0 0 280px;
+    border-right: 1px solid #ddd;
+    padding-right: 1.5rem;
+    position: sticky;
+    top: 1.5rem;
+    height: fit-content;
+  }
+  nav.sidebar h1 {
+    margin-bottom: 1rem;
+    color: #222;
+  }
+  nav.sidebar p.tagline {
+    font-weight: 500;
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 2rem;
+  }
+  nav.sidebar ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+  }
+  nav.sidebar ul li {
+    margin-bottom: 1.1rem;
+  }
+  nav.sidebar ul li a {
+    font-weight: 600;
+    font-size: 1.05rem;
+    padding: 8px 14px;
+    display: inline-block;
+    border-radius: 6px;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  nav.sidebar ul li a.active,
+  nav.sidebar ul li a:hover,
+  nav.sidebar ul li a:focus {
+    background-color: #0070f3;
+    color: #fff;
+    outline: none;
+  }
+
+  main.content {
+    flex: 1;
+  }
+
+  /* Skills tags */
+  ul.skills-list {
+    list-style: none;
+    padding-left: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+  }
+  ul.skills-list li {
+    background-color: #d6e4ff;
+    color: #003d99;
+    padding: 0.5rem 1.3rem;
+    border-radius: 9999px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    user-select: none;
+  }
+
+  /* Projects as cards */
+  section#projects {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  article.project {
+    background: #fff;
+    border-radius: 12px;
+    padding: 1.8rem 2rem;
+    box-shadow: 0 8px 20px rgb(0 0 0 / 0.07);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+  article.project:hover,
+  article.project:focus-within {
+    box-shadow: 0 12px 30px rgb(0 0 0 / 0.15);
+    transform: translateY(-5px);
+  }
+  article.project h3 {
+    margin-bottom: 0.5rem;
+    color: #004080;
+  }
+  article.project .date {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 1rem;
+  }
+  article.project p {
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    color: #444;
+  }
+  article.project a {
+    font-weight: 600;
+  }
+
+  /* Slider container & images */
+  .slider-container {
+    max-width: 400px;  /* 限制最大寬度 */
+    position: relative;
+    margin-bottom: 1rem;
+  }
+  .slider-image {
+    width: 100%;
+    height: 225px;      /* 固定高度 */
+    object-fit: contain; /* 圖片自適應不變形 */
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+  }
+  .slider-image:hover,
+  .slider-image:focus {
+    transform: scale(1.02);
+  }
+
+  /* Slider buttons */
+  .slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0,0,0,0.3);
+    border: none;
+    color: white;
+    font-size: 1.8rem;
+    padding: 0 10px;
+    cursor: pointer;
+    border-radius: 6px;
+    user-select: none;
+    transition: background-color 0.3s ease;
+  }
+  .slider-btn:hover,
+  .slider-btn:focus {
+    background-color: rgba(0,0,0,0.5);
+    outline: none;
+  }
+  #prev-btn {
+    left: 5px;
+  }
+  #next-btn {
+    right: 5px;
+  }
+
+  /* 第二個專案圖片大小 */
+  article.project img.project-image {
+    max-width: 400px;
+    height: 225px;
+    object-fit: contain;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  article.project img.project-image:hover,
+  article.project img.project-image:focus {
+    transform: scale(1.02);
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    margin-top: 4rem;
+    padding: 2rem 0;
+    font-size: 0.9rem;
+    color: #666;
+    border-top: 1px solid #eee;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .container {
+      flex-direction: column;
+      padding: 0 1rem;
+    }
+    nav.sidebar {
+      position: relative;
+      border-right: none;
+      padding-right: 0;
+      margin-bottom: 2rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <nav class="sidebar" aria-label="Primary Navigation">
+    <h1>Jacky Tse</h1>
+    <p class="tagline"><br>Focused on data-driven decision making through SEO and data analysis</p>
+    <ul>
+      <li><a href="#about" class="active">About Me</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact Me</a></li>
+    </ul>
+  </nav>
+
+  <main class="content">
+    <section id="about">
+      <h2>About Me</h2>
+      <p>I am a passionate student of data and SEO, with a background in psychology. Proficient in Python, SQL. Looking to enhance practical skills through internship opportunities and contribute measurable results to organizations.</p>
+    </section>
+
+    <section id="skills">
+      <h2>Skills</h2>
+      <ul class="skills-list">
+        <li>Python</li>
+        <li>SQL</li>
+        <li>Power BI</li>
+        <li>Excel</li>
+        <li>Data Visualization</li>
+      </ul>
+    </section>
+
+    <section id="projects">
+      <h2>Projects</h2>
+
+      <article class="project" tabindex="0">
+        <h3>Tokyo Short-Term Rental Market Analysis</h3>
+        <div class="date">June 2025</div>
+        <p><strong>Goal:</strong> Analyze Tokyo’s short-term rental market focusing on domestic tourism trends and competitive pricing strategies.</p>
+        <p><strong>Method:</strong> Collected and examined data on occupancy rates, pricing, room types, location influence, and host attributes from local sources and travel databases.</p>
+        <p><strong>Results:</strong> Identified key factors affecting occupancy such as pricing balance, proximity to transit and tourist spots, and host responsiveness. Highlighted high-value and high-competition areas, providing investment insights for new entrants.</p>
+        <p><strong>Technical Highlights:</strong> Data aggregation from multiple tourism sources, correlation analysis, and strategic market segmentation.</p>
+
+        <div class="slider-container" aria-label="Image slider for Tokyo project">
+          <a href="https://app.powerbi.com/links/nzhT3mZhBD?ctid=bd697c1b-c481-479c-841e-c618542675c3&pbi_source=linkShare" target="_blank" rel="noopener noreferrer">
+            <img id="slider-image" class="slider-image" src="SharedScreenshot.jpg" alt="Tokyo Airbnb Market Analysis Dashboard" />
+          </a>
+          <button id="prev-btn" class="slider-btn" aria-label="Previous Image">&#10094;</button>
+          <button id="next-btn" class="slider-btn" aria-label="Next Image">&#10095;</button>
+        </div>
+
+        <p><a href="https://app.powerbi.com/links/nzhT3mZhBD?ctid=bd697c1b-c481-479c-841e-c618542675c3&pbi_source=linkShare" target="_blank" rel="noopener noreferrer">View detailed analysis (Presentation)</a></p>
+      </article>
+
+      <article class="project" tabindex="0">
+        <h3>Sports Nutrition Market Web Scraping Tool</h3>
+        <div class="date">April 2025</div>
+        <p><strong>Goal:</strong> Develop a web scraper to collect pricing, product variety, and stock information across major sports nutrition retailers in Hong Kong.</p>
+        <p><strong>Method:</strong> Built an automated Selenium-based crawler targeting iHerb, BCShop, and Decathlon, scraping over 35,000 data points in 14 days. Data stored in PostgreSQL for analysis.</p>
+        <p><strong>Results:</strong> Delivered actionable insights on pricing gaps, brand presence, inventory trends, and marketing strategies. Proposed a roadmap for sentiment analysis and inventory alert systems.</p>
+        <p><strong>Technical Highlights:</strong> Selenium multi-threaded scraping, database design, data validation, and future AI-driven market intelligence plans.</p>
+        <a href="https://app.powerbi.com/links/nzhT3mZhBD?ctid=bd697c1b-c481-479c-841e-c618542675c3&pbi_source=linkShare" target="_blank" rel="noopener noreferrer" title="Open Power BI Dashboard">
+          <img src="SharedScreenshot2.jpg" alt="Sports Nutrition Market Research Dashboard" class="project-image" />
+        </a>
+        <p><a href="https://app.powerbi.com/links/nzhT3mZhBD?ctid=bd697c1b-c481-479c-841e-c618542675c3&pbi_source=linkShare" target="_blank" rel="noopener noreferrer">View project report (Presentation)</a></p>
+      </article>
+    </section>
+
+    <section id="education">
+      <h2>Education</h2>
+      <p><strong>Lingnan University</strong> — Bachelor of Science in Psychology (2021 - 2023)</p>
+    </section>
+
+    <section id="contact">
+      <h2>Contact Me</h2>
+      <p>Email: <a href="mailto:jackytse1127@gmail.com">jackytse1127@gmail.com</a></p>
+    </section>
+  </main>
+</div>
+
+<footer>
+  &copy; 2025 Jacky Tse All rights reserved
+</footer>
+
+<script>
+  (function(){
+    const images = [
+      {src: 'SharedScreenshot.jpg', alt:'Tokyo Airbnb Market Analysis Dashboard'},
+      {src: 'SharedScreenshot3.jpg', alt:'Keyword search of Tokyo Airbnb customer review (2024)'}
+    ];
+
+    let currentIndex = 0;
+    const sliderImage = document.getElementById('slider-image');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const sliderLink = sliderImage.parentElement;
+
+    function updateImage(index){
+      sliderImage.src = images[index].src;
+      sliderImage.alt = images[index].alt;
+      sliderLink.href = "https://app.powerbi.com/links/nzhT3mZhBD?ctid=bd697c1b-c481-479c-841e-c618542675c3&pbi_source=linkShare";
+    }
+
+    prevBtn.addEventListener('click', () => {
+      currentIndex = (currentIndex - 1 + images.length) % images.length;
+      updateImage(currentIndex);
+    });
+
+    nextBtn.addEventListener('click', () => {
+      currentIndex = (currentIndex + 1) % images.length;
+      updateImage(currentIndex);
+    });
+  })();
+
+  // Scrollspy to highlight nav links on scroll
+  const sections = document.querySelectorAll('section');
+  const navLinks = document.querySelectorAll('nav.sidebar ul li a');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop - 80;
+      if (pageYOffset >= sectionTop) {
+        current = section.getAttribute('id');
+      }
+    });
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === '#' + current) {
+        link.classList.add('active');
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
