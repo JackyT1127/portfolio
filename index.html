@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jacky Tse — Data Analyst Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" crossorigin="anonymous"></script>
+
+    <!-- React 18 (UMD) -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+
+    <!-- Preloader / transitions styles -->
+    <style>
+      /* Wrap all page content in #page-content; keep it hidden until preloader finishes */
+      #page-content { opacity: 0; transform: translateY(6px); }
+
+      /* Fullscreen preloader */
+      .preloader {
+        position: fixed; inset: 0; z-index: 9999;
+        display: grid; place-items: center;
+        background: radial-gradient(1200px 600px at 50% -10%, rgba(56,189,248,.12), transparent 60%),
+                    linear-gradient(135deg, #0a0f2c 0%, #000 70%);
+        color: #fff;
+      }
+      .preloader-card {
+        width: min(520px, 92vw);
+        background: rgba(255,255,255,0.06);
+        border: 1px solid rgba(255,255,255,0.18);
+        backdrop-filter: blur(8px);
+        border-radius: 16px;
+        padding: 28px 24px;
+        box-shadow: 0 20px 50px rgba(0,0,0,.35);
+      }
+      .preloader-title {
+        font-weight: 800;
+        letter-spacing: .06em;
+        font-size: clamp(28px, 4vw, 42px);
+        line-height: 1;
+        text-transform: uppercase;
+      }
+      .preloader-sub {
+        opacity: .8; margin-top: 6px; font-size: 14px;
+      }
+      .progress-track {
+        margin-top: 18px; height: 8px; border-radius: 999px;
+        background: rgba(255,255,255,.12); overflow: hidden;
+        border: 1px solid rgba(255,255,255,.15);
+      }
+      .progress-bar {
+        width: 0%; height: 100%;
+        background: linear-gradient(90deg, #60a5fa, #38bdf8);
+        box-shadow: 0 0 16px rgba(56,189,248,.45);
+      }
+      .progress-row {
+        display: flex; justify-content: space-between; align-items: center; margin-top: 10px;
+        font-variant-numeric: tabular-nums;
+      }
+      .preloader-fade { opacity: 0; transform: scale(.96); }
+
+      /* sections start slightly down + blurred */
+      [data-reveal]{
+        opacity:0;
+        filter: blur(10px);
+        transform: translateY(10px);
+        will-change: opacity, transform, filter;
+      }
+    </style>
+  </head>
+
+  
+
+  <body class="bg-black text-gray-300">
+    <nav class="fixed top-0 w-full bg-gray-900 text-gray-100 shadow-lg">
+      <div class="max-w-6xl mx-auto flex justify-between items-center px-4 py-3">
+        <a href="index.html" class="text-xl font-semibold hover:text-blue-400">Jacky Tse</a>
+        <ul class="flex space-x-6">
+          <li><a href="index.html" class="hover:text-blue-400">Home</a></li>
+          <li><a href="about.html" class="hover:text-blue-400">About Me</a></li>
+          <li><a href="skills.html" class="hover:text-blue-400">Skills</a></li>
+          <li><a href="projects.html" class="hover:text-blue-400">Projects</a></li>
+          <li><a href="contact.html" class="hover:text-blue-400">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div id="page-content">
+    <!-- your existing page markup goes here (nav + sections + footer) -->
+    </div>
+
+    <!-- Preloader root -->
+    <div id="preloader-root"></div>
+
+
+    <!-- Hero Section -->
+    <section class="relative mt-16 flex items-center justify-center min-h-screen bg-no-repeat bg-cover bg-center" style="background-image: url('hero-bg.jpg');">
+      <!-- Background image: an abstract tech or city skyline matching dark theme -->
+      <!-- Dark overlay for readability -->
+      <div class="absolute inset-0 bg-black opacity-60"></div>
+      <!-- Hero content -->
+      <div class="relative z-10 text-center px-4">
+        <h1 class="text-5xl md:text-6xl font-bold mb-4">Jacky Tse</h1>
+        <p class="text-lg text-gray-400 max-w-xl mx-auto mb-8">
+          Turning data into actionable insights and <br class="hidden sm:block">driving decisions through analytics.
+        </p>
+        <a href="projects.html" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition duration-300">View My Projects</a>
+      </div>
+    </section>
+    <footer class="bg-gray-900 text-gray-500 text-sm text-center border-t border-gray-800 py-4 mt-12">
+      &copy; 2025 Jacky Tse. All rights reserved.
+    </footer>
+    <script>
+    (() => {
+      const { useEffect, useRef, useState } = React;
+
+      function Preloader({ title = "Jacky", onDone }) {
+        const boxRef = useRef(null);
+        const barRef = useRef(null);
+        const pctRef = useRef(null);
+        const subRef = useRef(null);
+
+        useEffect(() => {
+          // Intro pop
+          gsap.fromTo(boxRef.current, { opacity: 0, scale: .96 },
+            { opacity: 1, scale: 1, duration: .5, ease: "power2.out" });
+
+          // Fake loading 0->100 with GSAP
+          const obj = { p: 0 };
+          const tl = gsap.timeline({
+            onComplete: () => {
+              // fade progress line + hint
+              gsap.to([barRef.current, subRef.current, pctRef.current], { opacity: 0, duration: .25, ease: "power2.out" });
+              // scale + fade out the whole preloader, then remove and reveal content
+              gsap.to(boxRef.current, {
+                scale: .92, opacity: 0, duration: .45, ease: "power2.inOut",
+                onComplete: () => {
+                  const mount = document.getElementById('preloader-root');
+                  if (mount) mount.innerHTML = '';
+                  // Reveal page content
+                  gsap.to('#page-content', { opacity: 1, y: 0, duration: .5, ease: "power2.out" });
+                  onDone?.();
+                }
+              });
+            }
+          });
+
+          tl.to(obj, {
+            p: 100, duration: 1.6, ease: "power3.out",
+            onUpdate: () => {
+              const v = Math.round(obj.p);
+              if (pctRef.current) pctRef.current.textContent = v + '%';
+              if (barRef.current) barRef.current.style.width = v + '%';
+            }
+          });
+
+          return () => tl.kill();
+        }, []);
+
+        return (
+          React.createElement('div', { className: 'preloader' },
+            React.createElement('div', { ref: boxRef, className: 'preloader-card preloader-fade' },
+              React.createElement('div', { className: 'preloader-title' }, title),
+              React.createElement('div', { ref: subRef, className: 'preloader-sub' }, 'Loading portfolio…'),
+              React.createElement('div', { className: 'progress-track' },
+                React.createElement('div', { ref: barRef, className: 'progress-bar' })
+              ),
+              React.createElement('div', { className: 'progress-row' },
+                React.createElement('span', null, 'Initializing'),
+                React.createElement('span', { ref: pctRef }, '0%')
+              )
+            )
+          )
+        );
+      }
+
+      function mountPreloader() {
+        const mount = document.getElementById('preloader-root');
+        if (!mount) return;
+        const root = ReactDOM.createRoot(mount);
+        root.render(React.createElement(Preloader, { title: "Jacky" }));
+      }
+
+      // Delay mounting until DOM ready
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', mountPreloader);
+      } else {
+        mountPreloader();
+      }
+
+      // Fade-out on internal navigation clicks
+      function wireNavTransitions() {
+        const links = document.querySelectorAll('a[data-nav]');
+        links.forEach(a => {
+          a.addEventListener('click', (e) => {
+            const url = a.getAttribute('href');
+            if (!url || url.startsWith('http') || url.startsWith('mailto:')) return;
+            e.preventDefault();
+            gsap.to('#page-content', {
+              opacity: 0, y: 6, duration: .28, ease: "power2.inOut",
+              onComplete: () => { window.location.href = url; }
+            });
+          });
+        });
+      }
+      wireNavTransitions();
+    })();
+    </script>
+  </body>
+</html>

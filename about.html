@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jacky Tse — About Me</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" crossorigin="anonymous"></script>
+
+  <style>
+    /* Page content starts hidden and slides in */
+    #page-content { opacity: 0; transform: translateY(6px); }
+    .highlight { color: #6366F1; font-weight: 700; }
+
+    /* Optional reveal-on-scroll */
+    [data-reveal]{
+      opacity:0; filter: blur(10px); transform: translateY(10px);
+      will-change: opacity, transform, filter;
+    }
+  </style>
+</head>
+
+<body class="bg-gradient-to-br from-[#0a0f2c] to-black text-gray-300">
+  <!-- Navbar -->
+  <nav class="fixed top-0 w-full bg-gray-900 text-gray-100 shadow-lg z-50">
+    <div class="max-w-6xl mx-auto flex justify-between items-center px-4 py-3">
+      <a href="index.html" class="text-xl font-semibold hover:text-blue-400" data-nav>Jacky Tse</a>
+      <ul class="flex space-x-6">
+        <li><a href="index.html" class="hover:text-blue-400" data-nav>Home</a></li>
+        <li><a href="about.html" class="text-blue-400 font-bold" data-nav>About Me</a></li>
+        <li><a href="skills.html" class="hover:text-blue-400" data-nav>Skills</a></li>
+        <li><a href="projects.html" class="hover:text-blue-400" data-nav>Projects</a></li>
+        <li><a href="contact.html" class="hover:text-blue-400" data-nav>Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Wrap ALL visible content -->
+  <div id="page-content">
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto pt-32 px-6">
+      <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-10">
+        <!-- Left: Greeting -->
+        <div class="flex-1" data-reveal>
+          <span class="inline-block bg-indigo-500 text-white text-base md:text-lg px-5 py-1 rounded-full font-semibold mb-6">About Me</span>
+          <h1 class="text-5xl font-bold text-white leading-snug">Hello, I’m <span class="highlight">Jacky!</span></h1>
+        </div>
+
+        <!-- Right: Bio -->
+        <div class="flex-1 text-lg leading-relaxed text-gray-300" data-reveal>
+          <p class="mb-6">
+            I’m a <span class="highlight">detail-oriented data analyst</span> with a foundation in <span class="highlight">psychology</span> and a passion for solving complex problems through data. My background gives me a unique edge in understanding <span class="highlight">user behavior</span> and <span class="highlight">experimental design</span>, while my technical training has equipped me to work hands-on with tools like <span class="highlight">Python</span>, <span class="highlight">SQL</span>, <span class="highlight">Power BI</span>, and <span class="highlight">statistical modeling</span>.
+            <br /><br />
+            I specialize in cleaning, processing, and analyzing data to uncover patterns, build reliable dashboards, and support informed decision-making. I enjoy working on technical challenges — from building <span class="highlight">data pipelines</span> to visualizing insights — and take pride in writing clean, efficient code.
+            <br /><br />
+            Whether it’s optimizing marketing strategy, evaluating product performance, or conducting data-driven research, I aim to bridge the gap between raw data and actionable insight through rigorous, structured analysis.
+          </p>
+
+          <!-- Icons + Buttons -->
+          <div class="flex flex-wrap items-center gap-4">
+            <!-- LinkedIn -->
+            <a href="https://linkedin.com/in/jackytse" target="_blank" rel="noopener noreferrer"
+               class="w-10 h-10 flex items-center justify-center border border-gray-400 rounded-full hover:border-blue-400">
+              <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/linkedin.svg" class="w-5 h-5 invert" alt="LinkedIn" />
+            </a>
+
+            <!-- Email -->
+            <a href="mailto:jackytse1127@gmail.com"
+               class="w-10 h-10 flex items-center justify-center border border-gray-400 rounded-full hover:border-blue-400">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M2.94 6.33A2 2 0 014.88 5h10.24a2 2 0 011.94 1.33L10 11.34 2.94 6.33zM2 7.54v6.92A2 2 0 004 16.5h12a2 2 0 002-2.04V7.54l-7.6 5.08a1 1 0 01-1.2 0L2 7.54z" />
+              </svg>
+            </a>
+
+            <!-- GitHub -->
+            <a href="https://github.com/jackytse" target="_blank" rel="noopener noreferrer"
+               class="w-10 h-10 flex items-center justify-center border border-gray-400 rounded-full hover:border-blue-400">
+              <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/github.svg" class="w-5 h-5 invert" alt="GitHub" />
+            </a>
+
+            <!-- Projects Button -->
+            <a href="projects.html"
+               class="px-6 py-2 border border-gray-400 rounded-full font-medium hover:border-blue-400 hover:text-blue-300" data-nav>
+              Projects
+            </a>
+
+            <!-- Download CV Button -->
+            <a href="CV_Tse Siu Lung Jacky_St. James’ Settlement_Tech Intern (Data Analysis).pdf" download
+               class="px-6 py-2 border-2 border-indigo-500 text-indigo-500 rounded-full font-medium hover:bg-indigo-500 hover:text-black transition">
+              Download CV
+            </a>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-500 text-sm text-center border-t border-gray-800 py-4 mt-20">
+      &copy; 2025 Jacky Tse. All rights reserved.
+    </footer>
+  </div> <!-- /#page-content -->
+
+  <script>
+    (function () {
+      const NAV_ATTR = 'data-nav';
+
+      function interceptNav() {
+        document.querySelectorAll(`a[${NAV_ATTR}]`).forEach(a => {
+          a.addEventListener('click', (e) => {
+            const href = a.getAttribute('href') || '';
+            if (!href || href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('#')) return;
+            e.preventDefault();
+            sessionStorage.setItem('__navTransition', '1');
+            gsap.to('#page-content', {
+              opacity: 0, y: 8, duration: 0.28, ease: 'power2.inOut',
+              onComplete: () => (window.location.href = href)
+            });
+          });
+        });
+      }
+
+      function revealNow() {
+        const items = document.querySelectorAll('[data-reveal]');
+        items.forEach((el, i) => {
+          gsap.to(el, {
+            opacity: 1,
+            y: 0,
+            filter: 'blur(0px)',
+            duration: 0.6,
+            ease: 'power2.out',
+            delay: i * 0.08
+          });
+        });
+      }
+
+      function fadeInOnLoad() {
+        const content = document.getElementById('page-content');
+        if (!content) return;
+
+        // Start state
+        gsap.set(content, { opacity: 0, y: 8 });
+
+        // Page fade-in
+        gsap.to(content, {
+          opacity: 1, y: 0, duration: 0.45, ease: 'power2.out',
+          onComplete: () => {
+            content.style.opacity = '1';
+            content.style.transform = 'none';
+            // Run the section reveal immediately (the hero is already in viewport)
+            revealNow();
+          }
+        });
+
+        // Safety fallback
+        setTimeout(() => {
+          if (parseFloat(getComputedStyle(content).opacity) < 0.99) {
+            content.style.opacity = '1';
+            content.style.transform = 'none';
+            revealNow();
+          }
+        }, 1200);
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => { interceptNav(); fadeInOnLoad(); });
+      } else {
+        interceptNav(); fadeInOnLoad();
+      }
+    })();
+  </script>
+</body>
+</html>
