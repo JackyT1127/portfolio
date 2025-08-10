@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jacky Tse — Contact</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" crossorigin="anonymous"></script>
+
+    <style>
+      /* Page content starts hidden and slides in */
+      #page-content { opacity: 0; transform: translateY(6px); }
+      /* Optional section reveal */
+      [data-reveal]{ opacity:0; filter: blur(10px); transform: translateY(10px); will-change: opacity, transform, filter; }
+
+      /* Card hover polish (lift + glow) */
+      .card {
+        transform: translateZ(0);
+        transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease, background-color .2s ease;
+      }
+      .card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 16px 40px rgba(0,0,0,.35);
+        border-color: rgba(59,130,246,.5); /* blue-500/50 */
+        background-color: rgba(255,255,255,.06);
+      }
+    </style>
+  </head>
+
+  <body class="text-gray-300">
+    <!-- BACKGROUND (image + navy→black overlay) -->
+    <div class="fixed inset-0 -z-10">
+      <img
+        src="https://images.unsplash.com/photo-1706274072971-0d4bfb4c62c7?q=80&w=2064&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        alt="Abstract blue tech background"
+        class="h-full w-full object-cover"
+      />
+      <div class="absolute inset-0 bg-gradient-to-b from-[#0a0f2c]/70 to-black/70"></div>
+    </div>
+
+    <!-- NAV -->
+    <nav class="fixed top-0 w-full bg-gray-900/90 backdrop-blur text-gray-100 shadow z-50 border-b border-gray-800">
+      <div class="max-w-6xl mx-auto flex justify-between items-center px-4 py-3">
+        <a href="index.html" class="text-xl font-semibold hover:text-blue-400" data-nav>Jacky Tse</a>
+        <ul class="flex space-x-6">
+          <li><a href="index.html" class="hover:text-blue-400" data-nav>Home</a></li>
+          <li><a href="about.html" class="hover:text-blue-400" data-nav>About Me</a></li>
+          <li><a href="skills.html" class="hover:text-blue-400" data-nav>Skills</a></li>
+          <li><a href="projects.html" class="hover:text-blue-400" data-nav>Projects</a></li>
+          <li><a href="contact.html" class="text-blue-400 font-semibold" data-nav>Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- PAGE CONTENT -->
+    <div id="page-content">
+      <main class="max-w-6xl mx-auto px-4 pt-28 pb-16">
+        <header class="mb-10" data-reveal>
+          <h1 class="text-3xl md:text-4xl font-bold text-gray-100">Contact</h1>
+          <p class="mt-2 text-gray-300/90">Based in Taipei (UTC+8). I typically reply within 24–48 hours.</p>
+        </header>
+
+        <!-- GRID: Form (left) + Contact Cards (right) -->
+        <section class="grid grid-cols-1 md:grid-cols-5 gap-6">
+
+          <!-- CONTACT FORM -->
+          <div class="md:col-span-3">
+            <form id="contactForm"
+              action="https://formspree.io/f/myzplnyw"
+              method="POST"
+              class="space-y-4">
+              
+              <!-- Honeypot to reduce spam -->
+              <input type="text" name="_gotcha" style="display:none">
+
+              <!-- Name -->
+              <div>
+                <label for="name" class="block text-sm font-medium text-gray-200">Name</label>
+                <input type="text" id="name" name="name" required
+                      class="mt-1 w-full rounded-lg border border-gray-600 bg-black/40 text-white px-3 py-2 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500">
+              </div>
+
+              <!-- Email -->
+              <div>
+                <label for="email" class="block text-sm font-medium text-gray-200">Email</label>
+                <input type="email" id="email" name="email" required
+                      class="mt-1 w-full rounded-lg border border-gray-600 bg-black/40 text-white px-3 py-2 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500">
+              </div>
+
+              <!-- Topic -->
+              <div>
+                <label for="topic" class="block text-sm font-medium text-gray-200">Topic</label>
+                <select id="topic" name="topic"
+                        class="mt-1 w-full rounded-lg border border-gray-600 bg-black/40 text-white px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                  <option value="project">Project Inquiry</option>
+                  <option value="dashboard">Dashboard / BI</option>
+                  <option value="data">Data Cleaning / Analysis</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              <!-- Message -->
+              <div>
+                <label for="message" class="block text-sm font-medium text-gray-200">Message</label>
+                <textarea id="message" name="message" rows="5" required
+                          class="mt-1 w-full rounded-lg border border-gray-600 bg-black/40 text-white px-3 py-2 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+              </div>
+
+              <!-- Submit -->
+              <button type="submit"
+                      class="w-full rounded-lg bg-blue-600 px-4 py-2 text-white font-medium hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                Send Message
+              </button>
+
+              <!-- Status message -->
+              <p id="formStatus" class="mt-3 text-sm"></p>
+            </form>
+
+            <script>
+            document.getElementById('contactForm').addEventListener('submit', async function(e) {
+              e.preventDefault();
+              const form = e.target;
+              const status = document.getElementById('formStatus');
+              
+              const data = new FormData(form);
+              try {
+                const res = await fetch(form.action, {
+                  method: form.method,
+                  body: data,
+                  headers: { 'Accept': 'application/json' }
+                });
+                if (res.ok) {
+                  status.textContent = "✅ Thanks! Your message has been sent.";
+                  status.className = "mt-3 text-sm text-green-400";
+                  form.reset();
+                } else {
+                  const errData = await res.json();
+                  if (errData.errors) {
+                    status.textContent = errData.errors.map(e => e.message).join(", ");
+                  } else {
+                    status.textContent = "❌ Oops! Something went wrong.";
+                  }
+                  status.className = "mt-3 text-sm text-red-400";
+                }
+              } catch (error) {
+                status.textContent = "❌ Network error. Please try again later.";
+                status.className = "mt-3 text-sm text-red-400";
+              }
+            });
+            </script>
+          </div>
+
+          <!-- CONTACT CARDS -->
+          <div class="md:col-span-2 grid grid-cols-1 gap-4">
+            <!-- Email -->
+            <a href="mailto:jackytse1127@gmail.com" class="card block rounded-2xl border border-white/10 bg-white/5 backdrop-blur p-5">
+              <div class="flex items-start gap-4">
+                <div class="h-10 w-10 rounded-xl bg-blue-500/10 text-blue-400 grid place-items-center">
+                  <!-- envelope icon -->
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <rect x="3" y="6" width="18" height="12" rx="2" stroke="currentColor" stroke-width="1.6"/>
+                    <path d="M3 7l9 6 9-6" stroke="currentColor" stroke-width="1.6" fill="none"/>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="font-semibold text-white">Email</h3>
+                  <p class="text-sm text-gray-400">jackytse1127@gmail.com</p>
+                </div>
+              </div>
+            </a>
+
+            <!-- LinkedIn -->
+            <a href="https://linkedin.com/in/jackytse" target="_blank" rel="noopener noreferrer" class="card block rounded-2xl border border-white/10 bg-white/5 backdrop-blur p-5">
+              <div class="flex items-start gap-4">
+                <div class="h-10 w-10 rounded-xl bg-blue-500/10 text-blue-400 grid place-items-center">
+                  <!-- briefcase-ish -->
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2" stroke="currentColor" stroke-width="1.6"/>
+                    <rect x="3" y="7" width="18" height="12" rx="2" stroke="currentColor" stroke-width="1.6"/>
+                    <path d="M3 12h18" stroke="currentColor" stroke-width="1.6"/>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="font-semibold text-white">LinkedIn</h3>
+                  <p class="text-sm text-gray-400">linkedin.com/in/jackytse</p>
+                </div>
+              </div>
+            </a>
+
+            <!-- GitHub -->
+            <a href="https://github.com/JackyT1127" target="_blank" rel="noopener noreferrer" class="card block rounded-2xl border border-white/10 bg-white/5 backdrop-blur p-5">
+              <div class="flex items-start gap-4">
+                <div class="h-10 w-10 rounded-xl bg-blue-500/10 text-blue-400 grid place-items-center">
+                  <!-- code braces -->
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <path d="M8 8L4 12l4 4M16 8l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="font-semibold text-white">GitHub</h3>
+                  <p class="text-sm text-gray-400">github.com/JackyT1127</p>
+                </div>
+              </div>
+            </a>
+          </div>
+        </section>
+      </main>
+
+      <footer class="bg-gray-900/80 text-gray-400 text-sm text-center border-t border-white/10 py-4">
+        &copy; 2025 Jacky Tse. All rights reserved.
+      </footer>
+    </div>
+
+    <!-- Page transitions -->
+    <script>
+      (function(){
+        function fadeInContent() {
+          const content = document.getElementById('page-content');
+          if (!content) return;
+
+          // Ensure starting state
+          if (window.gsap) {
+            gsap.set(content, { opacity: 0, y: 8 });
+            gsap.to(content, {
+              opacity: 1, y: 0, duration: 0.45, ease: 'power2.out',
+              onComplete: () => {
+                content.style.opacity = '1';
+                content.style.transform = 'none';
+              }
+            });
+          } else {
+            content.style.opacity = '1';
+            content.style.transform = 'none';
+          }
+        }
+
+        function wireNavFade() {
+          document.querySelectorAll('a[data-nav]').forEach(a => {
+            a.addEventListener('click', (e) => {
+              const href = a.getAttribute('href') || '';
+              // only intercept internal relative links
+              if (!href || href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('#')) return;
+              e.preventDefault();
+              sessionStorage.setItem('__navTransition', '1');
+              if (window.gsap) {
+                gsap.to('#page-content', {
+                  opacity: 0, y: 8, duration: 0.28, ease: 'power2.inOut',
+                  onComplete: () => window.location.href = href
+                });
+              } else {
+                window.location.href = href;
+              }
+            });
+          });
+        }
+
+        // Run after DOM is ready
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', () => { fadeInContent(); wireNavFade(); });
+        } else {
+          fadeInContent(); wireNavFade();
+        }
+
+        // Safety fallback if animations get blocked
+        setTimeout(() => {
+          const c = document.getElementById('page-content');
+          if (c && parseFloat(getComputedStyle(c).opacity) < 0.99) {
+            c.style.opacity = '1';
+            c.style.transform = 'none';
+          }
+        }, 1200);
+      })();
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script>
+      (function() {
+        emailjs.init("VSd_ZEr1YAO0FKSGs"); // Replace with your EmailJS Public Key
+      })();
+    </script>
+
+    <script>
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const status = document.getElementById('formStatus');
+      const serviceID = "service_mqtk5cc"; // Replace with your Service ID
+      const templateID_me = "template_7me58ho"; // Replace with your Template ID (to you)
+      const templateID_auto = "template_khnt34m"; // Replace with your Template ID (auto-reply to user)
+      
+      const form = this;
+
+      // Send email to YOU
+      emailjs.sendForm(serviceID, templateID_me, form)
+        .then(() => {
+          // Send auto-reply to USER
+          return emailjs.sendForm(serviceID, templateID_auto, form);
+        })
+        .then(() => {
+          status.textContent = "✅ Thanks! Your message was sent and a confirmation email is on the way.";
+          status.className = "mt-3 text-sm text-green-400";
+          form.reset();
+        })
+        .catch((err) => {
+          status.textContent = "❌ Error sending message. Please try again.";
+          status.className = "mt-3 text-sm text-red-400";
+          console.error(err);
+        });
+    });
+    </script>
+  </body>
+</html>

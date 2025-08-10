@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jacky Tse — Skills</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" crossorigin="anonymous"></script>
+
+  <style>
+    /* Page content starts hidden and slides in */
+    #page-content { opacity: 0; transform: translateY(6px); }
+    .highlight { color: #38BDF8; font-weight: 700; }
+
+    /* Optional: section reveal (blur->clear) */
+    [data-reveal]{
+      opacity:0; filter: blur(10px); transform: translateY(10px);
+      will-change: opacity, transform, filter;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-[#0a0f2c] to-black text-gray-300">
+  <!-- NAV -->
+  <nav class="fixed top-0 w-full bg-gray-900 text-gray-100 shadow-lg z-50">
+    <div class="max-w-6xl mx-auto flex justify-between items-center px-4 py-3">
+      <a href="index.html" class="text-xl font-semibold hover:text-blue-400" data-nav>Jacky Tse</a>
+      <ul class="flex space-x-6">
+        <li><a href="index.html" class="hover:text-blue-400" data-nav>Home</a></li>
+        <li><a href="about.html" class="hover:text-blue-400" data-nav>About Me</a></li>
+        <li><a href="skills.html" class="text-blue-400 font-bold" data-nav>Skills</a></li>
+        <li><a href="projects.html" class="hover:text-blue-400" data-nav>Projects</a></li>
+        <li><a href="contact.html" class="hover:text-blue-400" data-nav>Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- WRAP ALL VISIBLE CONTENT INSIDE #page-content -->
+  <div id="page-content">
+    <main class="max-w-7xl mx-auto px-6 pt-32">
+      <span class="inline-block bg-blue-500 text-white text-base md:text-lg px-5 py-1 rounded-full font-semibold mb-8">
+        Technical Skills
+      </span>
+
+      <!-- CARD GRID -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+        <!-- Card: Programming Languages -->
+        <article class="group rounded-2xl border border-slate-800/60 bg-white/5 backdrop-blur-sm p-6
+                        shadow-sm transition-transform duration-200 ease-out hover:-translate-y-1
+                        hover:shadow-lg hover:border-blue-500/40"
+                 data-reveal>
+          <!-- Icon -->
+          <div class="h-10 w-10 rounded-xl bg-blue-500/10 text-blue-400 grid place-items-center">
+            <!-- simple code braces icon -->
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M8 8L4 12l4 4M16 8l4 4-4 4"/>
+            </svg>
+          </div>
+
+          <h2 class="mt-4 text-2xl font-bold text-white tracking-tight">
+            Programming <span class="text-blue-400">Languages</span>
+          </h2>
+          <ul class="mt-4 space-y-2 text-[17px]">
+            <li>Python</li>
+            <li>SQL</li>
+          </ul>
+        </article>
+
+        <!-- Card: Data Analytic Tools -->
+        <article class="group rounded-2xl border border-slate-800/60 bg-white/5 backdrop-blur-sm p-6
+                        shadow-sm transition-transform duration-200 ease-out hover:-translate-y-1
+                        hover:shadow-lg hover:border-blue-500/40"
+                 data-reveal>
+          <div class="h-10 w-10 rounded-xl bg-blue-500/10 text-blue-400 grid place-items-center">
+            <!-- toolbox / wrench-like abstract -->
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 7h8M3 12h12M3 17h6"/>
+              <circle cx="18" cy="7" r="2"/>
+            </svg>
+          </div>
+
+          <h2 class="mt-4 text-2xl font-bold text-white tracking-tight">
+            Data Analytic <span class="text-blue-400">Tools</span>
+          </h2>
+          <ul class="mt-4 space-y-2 text-[17px]">
+            <li>Excel</li>
+            <li>Google Sheets</li>
+            <li>DBeaver</li>
+          </ul>
+        </article>
+
+        <!-- Card: Data Visualization Tools -->
+        <article class="group rounded-2xl border border-slate-800/60 bg-white/5 backdrop-blur-sm p-6
+                        shadow-sm transition-transform duration-200 ease-out hover:-translate-y-1
+                        hover:shadow-lg hover:border-blue-500/40"
+                 data-reveal>
+          <div class="h-10 w-10 rounded-xl bg-blue-500/10 text-blue-400 grid place-items-center">
+            <!-- bar chart icon -->
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 20V10M10 20V4M16 20v-6M2 20h20"/>
+            </svg>
+          </div>
+
+          <h2 class="mt-4 text-2xl font-bold text-white tracking-tight">
+            Data Visualization <span class="text-blue-400">Tools</span>
+          </h2>
+          <ul class="mt-4 space-y-2 text-[17px]">
+            <li>Power BI</li>
+            <li>Matplotlib</li>
+            <li>Plotly</li>
+          </ul>
+        </article>
+
+        <!-- Card: Data Analytic Methods -->
+        <article class="group rounded-2xl border border-slate-800/60 bg-white/5 backdrop-blur-sm p-6
+                        shadow-sm transition-transform duration-200 ease-out hover:-translate-y-1
+                        hover:shadow-lg hover:border-blue-500/40"
+                 data-reveal>
+          <div class="h-10 w-10 rounded-xl bg-blue-500/10 text-blue-400 grid place-items-center">
+            <!-- beaker/analysis icon -->
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M6 2h12M10 2v6l-5 9a3 3 0 0 0 2.6 5h8.8a3 3 0 0 0 2.6-5l-5-9V2"/>
+            </svg>
+          </div>
+
+          <h2 class="mt-4 text-2xl font-bold text-white tracking-tight">
+            Data Analytic <span class="text-blue-400">Methods</span>
+          </h2>
+          <ul class="mt-4 list-disc list-outside pl-5 space-y-2 text-[17px]">
+            <li>Statistics</li>
+            <li>Exploratory Data Analysis (EDA)</li>
+            <li>Hypothesis Testing</li>
+          </ul>
+        </article>
+
+      </div>
+    </main>
+
+    <footer class="bg-gray-900 text-gray-500 text-sm text-center border-t border-gray-800 py-4 mt-20">
+      &copy; 2025 Jacky Tse. All rights reserved.
+    </footer>
+  </div>
+
+  <!-- TRANSITIONS -->
+  <script>
+    (function(){
+      function fadeInContent() {
+        const content = document.getElementById('page-content');
+        if (!content) return;
+
+        const fromNav = sessionStorage.getItem('__navTransition') === '1';
+        if (fromNav) sessionStorage.removeItem('__navTransition');
+
+        gsap.set(content, { opacity: 0, y: 8 });
+        gsap.to(content, {
+          opacity: 1, y: 0, duration: 0.45, ease: 'power2.out',
+          onComplete: () => { content.style.opacity = '1'; content.style.transform = 'none'; }
+        });
+
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            const el = entry.target;
+            gsap.to(el, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.6, ease: 'power2.out' });
+            io.unobserve(el);
+          });
+        }, { threshold: 0.15 });
+        document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
+      }
+
+      function wireNavFade() {
+        document.querySelectorAll('a[data-nav]').forEach(a => {
+          a.addEventListener('click', (e) => {
+            const href = a.getAttribute('href') || '';
+            if (!href || href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('#')) return;
+            e.preventDefault();
+            sessionStorage.setItem('__navTransition', '1');
+            gsap.to('#page-content', {
+              opacity: 0, y: 8, duration: 0.28, ease: 'power2.inOut',
+              onComplete: () => window.location.href = href
+            });
+          });
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => { fadeInContent(); wireNavFade(); });
+      } else {
+        fadeInContent(); wireNavFade();
+      }
+
+      setTimeout(() => {
+        const c = document.getElementById('page-content');
+        if (c && parseFloat(getComputedStyle(c).opacity) < 0.99) {
+          c.style.opacity = '1';
+          c.style.transform = 'none';
+        }
+      }, 1200);
+    })();
+  </script>
+</body>
+</html>
